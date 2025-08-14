@@ -4,21 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slideshow</title>
-  <style>
-    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-    .slideshow-container { 
-      position: relative; 
-      height: 100%; 
-      width: 100%; 
-      cursor: pointer; /* Show pointer to indicate clickability */
-    }
-    .slides { 
-      display: none; 
-      height: 100%; 
-      width: 100%; 
-      object-fit: cover; 
-    }
-  </style>
+<style>
+  body, html { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    overflow: hidden; 
+  }
+  .slideshow-container { 
+    position: relative; 
+    height: 100%; 
+    width: 100%; 
+    cursor: pointer; 
+    background-color: black; /* background for letterbox effect */
+  }
+  .slides { 
+    display: none; 
+    height: 100%; 
+    width: 100%; 
+    object-fit: contain; /* show full image, no crop */
+    background-color: black;
+  }
+</style>
+
 </head>
 <body>
 
