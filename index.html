@@ -4,45 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slideshow</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: black;
-    }
-    .slideshow-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      width: 100%;
-      cursor: pointer;
-      background-color: black;
-      overflow: hidden;
-    }
-    .slides {
-      display: none;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      image-rendering: -webkit-optimize-contrast; /* better detail in Chrome */
-      image-rendering: crisp-edges; /* sharper in some browsers */
-      background-color: black;
-    }
-  </style>
+<style>
+  body, html { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    overflow: hidden; 
+  }
+  .slideshow-container { 
+    position: relative; 
+    height: 100%; 
+    width: 100%; 
+    cursor: pointer; 
+    background-color: rgba(0, 0, 0, 0); /* background for letterbox effect */
+  }
+  .slides { 
+    display: none; 
+    height: 100%; 
+    width: 100%; 
+    object-fit: contain; /* show full image, no crop */
+    background-color: rgba(0, 0, 0, 0);
+  }
+</style>
+
 </head>
 <body>
 
 <div class="slideshow-container" id="slideshow">
-  <img class="slides" src="image1.jpg" alt="Image 1">
-  <img class="slides" src="image2.jpg" alt="Image 2">
+  <img class="slides" src="Photos/image1.jpg" alt="Image 1">
+  <img class="slides" src="Photos/image2.jpg" alt="Image 2">
   <!-- Add more images as needed -->
 </div>
 
 <script>
   let slideIndex = 0;
-  const intervalTime = 3600000; // 1 hour
+  const intervalTime = 3600000; // 1 hour in ms
   const slides = document.querySelectorAll('.slides');
 
   function showSlide(index) {
@@ -51,7 +47,8 @@
   }
 
   function nextSlide() {
-    slideIndex = (slideIndex + 1) % slides.length;
+    slideIndex++;
+    if (slideIndex >= slides.length) slideIndex = 0;
     showSlide(slideIndex);
   }
 
@@ -59,18 +56,21 @@
     let randomIndex;
     do {
       randomIndex = Math.floor(Math.random() * slides.length);
-    } while (randomIndex === slideIndex);
+    } while (randomIndex === slideIndex); // avoid repeating the same image
     slideIndex = randomIndex;
     showSlide(slideIndex);
   }
 
+  // Auto change every interval
   function startSlideshow() {
     showSlide(slideIndex);
     setInterval(nextSlide, intervalTime);
   }
 
+  // Click to change randomly
   document.getElementById('slideshow').addEventListener('click', randomSlide);
 
+  // Start the show
   startSlideshow();
 </script>
 
