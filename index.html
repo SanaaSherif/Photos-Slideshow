@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slideshow</title>
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+    .slideshow-container { 
+      position: relative; 
+      height: 100%; 
+      width: 100%; 
+      cursor: pointer; /* Show pointer to indicate clickability */
+    }
+    .slides { 
+      display: none; 
+      height: 100%; 
+      width: 100%; 
+      object-fit: cover; 
+    }
+  </style>
+</head>
+<body>
+
+<div class="slideshow-container" id="slideshow">
+  <img class="slides" src="Photos/image1.jpg" alt="Image 1">
+  <img class="slides" src="Photos/image2.jpg" alt="Image 2">
+  <!-- Add more images as needed -->
+</div>
+
+<script>
+  let slideIndex = 0;
+  const intervalTime = 3600000; // 1 hour in ms
+  const slides = document.querySelectorAll('.slides');
+
+  function showSlide(index) {
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[index].style.display = 'block';
+  }
+
+  function nextSlide() {
+    slideIndex++;
+    if (slideIndex >= slides.length) slideIndex = 0;
+    showSlide(slideIndex);
+  }
+
+  function randomSlide() {
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * slides.length);
+    } while (randomIndex === slideIndex); // avoid repeating the same image
+    slideIndex = randomIndex;
+    showSlide(slideIndex);
+  }
+
+  // Auto change every interval
+  function startSlideshow() {
+    showSlide(slideIndex);
+    setInterval(nextSlide, intervalTime);
+  }
+
+  // Click to change randomly
+  document.getElementById('slideshow').addEventListener('click', randomSlide);
+
+  // Start the show
+  startSlideshow();
+</script>
+
+</body>
+</html>
